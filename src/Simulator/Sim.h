@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Logger/Logger.h"
+#include <imgui.h>
 
 namespace sim
 {
