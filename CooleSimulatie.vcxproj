@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -59,6 +59,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)vendor\SFML;$(ProjectDir)vendor\imgui;$(ProjectDir)src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,7 +78,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\;%(AdditionalIncludeDirectories) </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,11 +93,94 @@
     </ClCompile>
     <ClCompile Include="src\Simulator\Sim.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="vendor\imgui-sfml\examples\minimal\main.cpp" />
+    <ClCompile Include="vendor\imgui-sfml\examples\multiple_windows\main.cpp" />
+    <ClCompile Include="vendor\imgui-sfml\imgui-SFML.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_allegro5.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_android.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx10.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx12.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_glut.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_sdl.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_sdlrenderer.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_vulkan.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_wgpu.cpp" />
+    <ClCompile Include="vendor\imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_allegro5\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_android_opengl3\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_emscripten_opengl3\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_emscripten_wgpu\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_glfw_opengl2\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_glfw_opengl3\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_glfw_vulkan\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_glut_opengl2\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_null\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_sdl_directx11\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_sdl_opengl2\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_sdl_opengl3\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_sdl_sdlrenderer\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_sdl_vulkan\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_win32_directx10\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_win32_directx11\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_win32_directx12\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\example_win32_directx9\main.cpp" />
+    <ClCompile Include="vendor\imgui\examples\libs\usynergy\uSynergy.c" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="vendor\imgui\misc\fonts\binary_to_compressed_c.cpp" />
+    <ClCompile Include="vendor\imgui\misc\freetype\imgui_freetype.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Simulator\Logger\Logger.h" />
     <ClInclude Include="src\Simulator\Sim.h" />
+    <ClInclude Include="vendor\imgui-sfml\imconfig-SFML.h" />
+    <ClInclude Include="vendor\imgui-sfml\imgui-SFML.h" />
+    <ClInclude Include="vendor\imgui-sfml\imgui-SFML_export.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_allegro5.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_android.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_dx10.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_dx12.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_glut.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_metal.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl2.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_osx.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_sdl.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_sdlrenderer.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_vulkan.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_wgpu.h" />
+    <ClInclude Include="vendor\imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="vendor\imgui\examples\example_allegro5\imconfig_allegro5.h" />
+    <ClInclude Include="vendor\imgui\examples\libs\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="vendor\imgui\examples\libs\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="vendor\imgui\examples\libs\usynergy\uSynergy.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\imgui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="vendor\imgui\misc\freetype\imgui_freetype.h" />
+    <ClInclude Include="vendor\imgui\misc\single_file\imgui_single_file.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\imgui\examples\example_emscripten_opengl3\shell_minimal.html" />
+    <None Include="vendor\imgui\examples\example_emscripten_wgpu\web\index.html" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
