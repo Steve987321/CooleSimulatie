@@ -52,6 +52,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)bin-inter\$(Configuration)\</IntDir>
+    <LibraryPath>$(ProjectDir)vendor\SFML-2.5.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -78,7 +79,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\;%(AdditionalIncludeDirectories) </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\;$(ProjectDir)vendor\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
