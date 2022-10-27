@@ -10,7 +10,6 @@ int main()
 		return EXIT_FAILURE;
 
 	app->run();
-	app->clean_up();
 
 	return EXIT_SUCCESS;
 }

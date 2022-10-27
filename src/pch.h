@@ -4,6 +4,7 @@
 
 #include <sstream>
 
+#define NOMINMAX
 #include <Windows.h>
 
 #include <vector>

@@ -4,29 +4,51 @@
 namespace sim
 {
 
-bool Application::init_sfml_window()
+bool Application::init_window()
 {
-	return true;
+	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "sim", sf::Style::Titlebar | sf::Style::Close);
+
+	window.setFramerateLimit(WINDOW_FPS);
+
+	return ImGui::SFML::Init(window);
+}
+
+void Application::event_handler()
+{
+	sf::Event event;
+	while (window.pollEvent(event))
+	{
+		switch (event.type)
+		{
+		case sf::Event::Closed:
+			window.close();
+			break;
+		}
+	}
 }
 
 bool Application::init()
 {
 	log_Debug("init");
-	if (!init_sfml_window()) return false;
+	if (!init_window()) return false;
 
 	return true;
 }
+
 void Application::run()
 {
-	log_Debug("debug");
-	log_Ok("ok");
-	log_Warn("warning");
-	log_Error("error");
-
+	while (window.isOpen())
+	{
+		event_handler();
+		//onRender(); 
+	}
+	clean_up();
 }
+
 void Application::clean_up()
 {
 	log_Debug("clean up");
+	window.close();
 }
 
 }
