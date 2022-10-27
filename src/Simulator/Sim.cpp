@@ -4,10 +4,16 @@
 namespace sim
 {
 
+bool Application::init_sfml_window()
+{
+	
+}
+
 bool Application::init()
 {
 	log_Debug("init");
-	
+	if (!init_sfml_window()) return false;
+
 	return true;
 }
 void Application::run()
