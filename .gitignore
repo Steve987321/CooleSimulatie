@@ -1,4 +1,9 @@
-/.vs
+.vs/
+bin/
+bin-inter/
+imgui.ini
+
+
 # Prerequisites
 *.d
 
