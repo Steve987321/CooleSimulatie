@@ -403,9 +403,6 @@
     <None Include="vendor\SFML-2.5.1\include\SFML\System\Vector3.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="vendor\imgui\.editorconfig" />
-    <None Include="vendor\imgui\.gitattributes" />
-    <None Include="vendor\imgui\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vendor\imgui\LICENSE.txt" />

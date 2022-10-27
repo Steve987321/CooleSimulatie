@@ -1,14 +1,13 @@
 #pragma once
 
+// SFML
+#include "SFML/System.hpp"
+
 // SIM
 #include "Logger/Logger.h"
 
 // IMGUI
 #include <imgui.h>
-
-// SFML
-#include "SFML/System.hpp"
-#include "SFML/Graphics.hpp"
 
 namespace sim
 {

@@ -103,14 +103,18 @@
     <ClCompile Include="vendor\imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="vendor\imgui\imgui_draw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="vendor\imgui\imgui_tables.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h" />
@@ -225,9 +229,6 @@
     <ClInclude Include="vendor\SFML-2.5.1\include\SFML\Window\WindowStyle.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="vendor\imgui\.editorconfig" />
-    <None Include="vendor\imgui\.gitattributes" />
-    <None Include="vendor\imgui\.gitignore" />
     <None Include="vendor\SFML-2.5.1\include\SFML\Audio\SoundFileFactory.inl" />
     <None Include="vendor\SFML-2.5.1\include\SFML\Graphics\Glsl.inl" />
     <None Include="vendor\SFML-2.5.1\include\SFML\Graphics\Rect.inl" />

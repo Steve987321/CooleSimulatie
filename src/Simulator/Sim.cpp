@@ -6,7 +6,7 @@ namespace sim
 
 bool Application::init_sfml_window()
 {
-	
+	return true;
 }
 
 bool Application::init()
