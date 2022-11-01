@@ -94,9 +94,15 @@
   <ItemGroup>
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\Simulator\Sim.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Simulator\ui\ui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">pch.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="vendor\imgui\imgui-SFML.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -120,6 +126,7 @@
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Simulator\Logger\Logger.h" />
     <ClInclude Include="src\Simulator\Sim.h" />
+    <ClInclude Include="src\Simulator\ui\ui.h" />
     <ClInclude Include="vendor\imgui\imconfig-SFML.h" />
     <ClInclude Include="vendor\imgui\imgui-SFML.h" />
     <ClInclude Include="vendor\imgui\imgui-SFML_export.h" />

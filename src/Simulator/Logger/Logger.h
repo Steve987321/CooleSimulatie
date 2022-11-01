@@ -3,7 +3,7 @@
 namespace sim
 {
 
-class logger
+class Logger
 {
 private:
 	std::shared_mutex m_mutex;
@@ -30,7 +30,7 @@ public:
 		LWARNING = 14	// yellow
 	};
 
-	logger() 
+	Logger() 
 	{
 		m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	}
@@ -76,13 +76,15 @@ public:
 		printf(Args..., Args...);
 		std::cout << std::endl;
 	}
-	
+
 };
+
+inline std::unique_ptr<Logger> p_Log;
 
 }
 
-inline auto p_logger = std::make_unique<sim::logger>();
-#define log_Ok(msg, ...) p_logger->Print(sim::logger::log_type::LOK, msg, __VA_ARGS__); 
-#define log_Debug(msg, ...) p_logger->Print(sim::logger::log_type::LDEBUG, msg, __VA_ARGS__); 
-#define log_Error(msg, ...) p_logger->Print(sim::logger::log_type::LERROR, msg, __VA_ARGS__); 
-#define log_Warn(msg, ...) p_logger->Print(sim::logger::log_type::LWARNING, msg, __VA_ARGS__); 
+
+#define log_Ok(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LOK, msg, __VA_ARGS__); 
+#define log_Debug(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LDEBUG, msg, __VA_ARGS__); 
+#define log_Error(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LERROR, msg, __VA_ARGS__); 
+#define log_Warn(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LWARNING, msg, __VA_ARGS__); 
