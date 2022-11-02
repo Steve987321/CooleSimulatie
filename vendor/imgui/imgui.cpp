@@ -6025,7 +6025,7 @@ void ImGui::RenderWindowDecorations(ImGuiWindow* window, const ImRect& title_bar
     window->SkipItems = false;
 
     // Draw window + handle manual resize
-    // As we highlight the title bar when want_focus is set, multiple reappearing windows will have their title bar highlighted on their reappearing frame.
+    // As we highlight the title bar when want_focus is set, multiple reappearing windows will have have their title bar highlighted on their reappearing frame.
     const float window_rounding = window->WindowRounding;
     const float window_border_size = window->WindowBorderSize;
     if (window->Collapsed)
@@ -6055,11 +6055,25 @@ void ImGui::RenderWindowDecorations(ImGuiWindow* window, const ImRect& title_bar
             window->DrawList->AddRectFilled(window->Pos + ImVec2(0, window->TitleBarHeight()), window->Pos + window->Size, bg_col, window_rounding, (flags & ImGuiWindowFlags_NoTitleBar) ? 0 : ImDrawFlags_RoundCornersBottom);
         }
 
-        // Title bar
+        // Title bar (custom)
         if (!(flags & ImGuiWindowFlags_NoTitleBar))
         {
-            ImU32 title_bar_col = GetColorU32(title_bar_is_highlight ? ImGuiCol_TitleBgActive : ImGuiCol_TitleBg);
-            window->DrawList->AddRectFilled(title_bar_rect.Min, title_bar_rect.Max, title_bar_col, window_rounding, ImDrawFlags_RoundCornersTop);
+            // ImU32 title_bar_col = GetColorU32(title_bar_is_highlight ? ImGuiCol_TitleBgActive : ImGuiCol_TitleBg);
+            ImU32 title_bar_col = GetColorU32(ImGuiCol_TitleBg);
+            ImColor title_bar_col_active = GetColorU32(ImGuiCol_TitleBgActive);
+
+            if (title_bar_is_highlight) {
+                window->DrawList->AddRectFilled(title_bar_rect.Min, title_bar_rect.Max, title_bar_col, window_rounding, ImDrawFlags_RoundCornersTop);
+                //gradient
+
+                //fade in to color
+                window->DrawList->AddRectFilledMultiColor(ImVec2(title_bar_rect.Min.x, title_bar_rect.Min.y), ImVec2(title_bar_rect.Min.x + (title_bar_rect.Max.x - title_bar_rect.Min.x) / 2, title_bar_rect.Max.y - 16), ImColor(0, 0, 0), title_bar_col_active, title_bar_col_active, ImColor(0, 0, 0));
+                //fade out from color to black
+                window->DrawList->AddRectFilledMultiColor(ImVec2(title_bar_rect.Min.x + (title_bar_rect.Max.x - title_bar_rect.Min.x) / 2, title_bar_rect.Min.y), ImVec2(title_bar_rect.Max.x, title_bar_rect.Max.y - 16), title_bar_col_active, ImColor(0, 0, 0), ImColor(0, 0, 0), title_bar_col_active);
+            }
+            else {
+                window->DrawList->AddRectFilled(title_bar_rect.Min, title_bar_rect.Max, title_bar_col, window_rounding, ImDrawFlags_RoundCornersTop);
+            }
         }
 
         // Menu bar

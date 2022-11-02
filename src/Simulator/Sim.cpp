@@ -9,6 +9,22 @@ bool Simulator::init_window()
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fluid simulator", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(WINDOW_FPS);
 
+	int size = 0;
+
+	for (int i = 0;i < sim::grid::rows.x;i++)
+		for (int j = 0; j < sim::grid::rows.y; j++)
+		{
+			size++;
+			auto square = std::make_unique<Square>(sf::Vector2f(40, 40));
+
+			square->set_name("square (" + std::to_string(size) + ')');
+			square->set_color(sf::Color::White);
+
+			square->Shape.setPosition(sf::Vector2f(100 + i * 50, 60 + j * 50));
+
+			sim::grid::gridvec.emplace_back(std::move(square));
+		}
+
 	return ImGui::SFML::Init(window);
 }
 
@@ -37,12 +53,17 @@ void Simulator::Render()
 	window.clear(sf::Color::Black); // window bg
 
 	//--------------------draw------------------------//
+	
 
-
+	for (int i = 0; i < sim::grid::gridvec.size(); i++)
+	{
+		window.draw(sim::grid::gridvec[i]->Shape);
+		log_Debug("x: %.2f y: %.2f \n", sim::grid::gridvec[i]->Shape.getPosition().x, sim::grid::gridvec[i]->Shape.getPosition().x);
+	}
+		
 
 	// imgui
 	ImGui::SFML::Render(window);
-
 
 
 	//--------------------draw------------------------//
@@ -64,6 +85,9 @@ void Simulator::run()
 	{
 		// update deltatime
 		deltatime = deltaclock.restart();
+
+		// update vars
+
 
 		// update imgui sfml
 		ImGui::SFML::Update(window, deltatime);

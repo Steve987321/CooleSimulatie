@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -92,6 +92,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Simulator\Math\Physics.cpp" />
+    <ClCompile Include="src\Simulator\Helpers\Helpers.cpp" />
+    <ClCompile Include="src\Simulator\Grid\Square.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -123,10 +126,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Simulator\Math\Physics.h" />
+    <ClInclude Include="src\Simulator\Helpers\Helpers.h" />
+    <ClInclude Include="src\Simulator\Grid\Square.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Simulator\Logger\Logger.h" />
     <ClInclude Include="src\Simulator\Sim.h" />
+    <ClInclude Include="src\Simulator\Types.h" />
     <ClInclude Include="src\Simulator\ui\ui.h" />
+    <ClInclude Include="src\Simulator\Grid\Grid.h" />
     <ClInclude Include="vendor\imgui\imconfig-SFML.h" />
     <ClInclude Include="vendor\imgui\imgui-SFML.h" />
     <ClInclude Include="vendor\imgui\imgui-SFML_export.h" />

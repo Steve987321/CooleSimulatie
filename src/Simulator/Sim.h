@@ -9,7 +9,11 @@
 
 // SIM
 #include "Logger/Logger.h"
+#include "Grid\Square.h"
+#include "Grid\Grid.h"
 #include "ui/ui.h"
+#include "Helpers/Helpers.h"
+#include "Types.h"
 
 #define WINDOW_FPS 60
 #define WINDOW_WIDTH 900
