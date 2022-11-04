@@ -72,7 +72,7 @@ void sim::ui::render_ui()
 
 		ImGui::Text("scene");
 		ImGui::Separator();
-		ImGui::BeginChild("objects in scene", ImGui::GetWindowSize() / ImVec2(2,2) - ImVec2(5,5), true);
+		ImGui::BeginChild("objects in scene", ImGui::GetWindowSize() / ImVec2(1.08,2) - ImVec2(5,5), true);
 		{
 			for (int i = 0; i < sim::grid::gridvec.size(); i++)
 			{
@@ -89,7 +89,7 @@ void sim::ui::render_ui()
 
 		
 		//ImGui::Text(sim::grid::gridvec[selected_item]->get_name().c_str());
-		ImGui::BeginChild("current inspected object", ImGui::GetWindowSize() / ImVec2(2, 2) - ImVec2(-5, -5), true);
+		ImGui::BeginChild("current inspected object", ImGui::GetWindowSize() / ImVec2(1.12, 2) - ImVec2(-5, -5), true);
 		{
 			static float col[3];
 
