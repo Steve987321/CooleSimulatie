@@ -11,7 +11,7 @@ namespace physics
 	/// @param c 
 	/// @param n 
 	/// @return 
-	float calc_dichtheid(float current_density[]);
+	float* calc_dichtheid(float current_density[]);
 
 }
 
