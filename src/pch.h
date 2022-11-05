@@ -12,6 +12,7 @@
 #include <thread>
 
 #include <random>
+#include <cmath>
 
 #include <chrono>
 #include <time.h>

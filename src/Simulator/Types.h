@@ -11,9 +11,9 @@ namespace sim
 
 		bool operator==(const Vec2& other) { return x == other.x && y == other.y; }
 
-		Vec2& operator+(const Vec2& other) { x += other.x; y += other.y; }
-		Vec2& operator-(const Vec2& other) { x -= other.x; y -= other.y; }
-		Vec2& operator=(const Vec2& other) { x = other.x; y = other.y; }
+		Vec2 operator+(const Vec2& other) { return Vec2(x + other.x, y + other.y); }
+		Vec2 operator-(const Vec2& other) { return Vec2(x - other.x, y - other.y); }
+		Vec2 operator=(const Vec2& other) { return Vec2(x = other.x, y = other.y); }
 	};
 
 }

@@ -9,20 +9,17 @@ bool Simulator::init_window()
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Fluid simulator", sf::Style::Titlebar | sf::Style::Close);
 	window.setFramerateLimit(WINDOW_FPS);
 
-	int size = 0;
-
-	for (int i = 0;i < sim::grid::rows.x;i++)
+	for (int i = 0; i < sim::grid::rows.x; i++)
 		for (int j = 0; j < sim::grid::rows.y; j++)
 		{
-			size++;
 			auto square = std::make_unique<Square>(sf::Vector2f(40, 40));
 
-			square->set_name("square (" + std::to_string(size) + ')');
+			square->set_name("square (" + std::to_string(sim::grid::gridvec.size() + 1) + ')');
 			square->set_color(sf::Color::White);
 
 			square->Shape.setPosition(sf::Vector2f(100 + i * 50, 60 + j * 50));
 
-			sim::grid::gridvec.emplace_back(std::move(square));
+			sim::grid::gridvec.emplace_back(std::move(square)); // it is unique 
 		}
 
 	return ImGui::SFML::Init(window);
@@ -58,7 +55,7 @@ void Simulator::Render()
 	for (int i = 0; i < sim::grid::gridvec.size(); i++)
 	{
 		window.draw(sim::grid::gridvec[i]->Shape);
-		log_Debug("x: %.2f y: %.2f \n", sim::grid::gridvec[i]->Shape.getPosition().x, sim::grid::gridvec[i]->Shape.getPosition().x);
+		//log_Debug("x: %.2f y: %.2f \n", sim::grid::gridvec[i]->Shape.getPosition().x, sim::grid::gridvec[i]->Shape.getPosition().x);
 	}
 		
 
