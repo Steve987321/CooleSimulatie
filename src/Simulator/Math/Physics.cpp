@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Physics.h"
 #include "./Simulator/Sim.h"
+#include <imgui/imgui.h>
 
 float* sim::physics::calc_dichtheid(float current_density[])
 {
@@ -30,16 +31,45 @@ float* sim::physics::calc_dichtheid(float current_density[])
 
 float get_average(int index, float density[])
 {
-	// vars
-	int surrounding_square;
-	float avrage_density;
+	float avrage = 0.0f;
+	int side[1];
 
-	// calculate surrounding square
+	if (index == 1) { side[0] = 2; side[1] = 11; }
 
-	// get density of those square
+	else if (index == 91) { side[0] = 92; side[1] = 81; }
 
-	// devide sum of density by amount of square
+	else if (index == 10) { side[0] = 9; side[1] = 20; }
 
-	// return avrage
-	return avrage_density;
+	else if (index == 100) { side[0] = 99; side[1] = 90; }
+
+	else if (index % 10 == 1)
+	{
+		side[0] = index + 1; side[1] = index + 10; side[2] = index - 10;
+	}
+
+	else if (index % 10 == 0)
+	{
+		side[0] = index - 1; side[1] = index - 10; side[2] = index + 10;
+	}
+
+	else if (index < 10)
+	{
+		side[0] = index - 1; side[1] = index + 1; side[2] = index + 10;
+	}
+
+	else if (index > 91)
+	{
+		side[0] = index - 1; side[1] = index + 1; side[2] = index - 10;
+	}
+
+	else
+	{
+		side[0] = index - 1; side[1] = index + 1; side[2] = index + 10; side[3] = index - 10;
+	}
+
+	for (int i = 0; i < IM_ARRAYSIZE(side); i++)
+	{
+		avrage += density[side[i]];
+	}
+	return avrage / IM_ARRAYSIZE(side);
 }
