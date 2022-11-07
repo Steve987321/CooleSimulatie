@@ -13,13 +13,13 @@ float* sim::physics::calc_dichtheid(float current_density[])
 	//next_density = (current_density + change * average_density) / (1 + change);
 
 	// set array items to 0
-	//for (size_t i = 0; i < sizeof(new_density_array); i++) { new_density_array[i] = 0.0f; }
+	//for (int i = 0; i < sizeof(new_density_array); i++) { new_density_array[i] = 0.0f; }
 
 	// get new density
-	for (size_t i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		float density_array[100/*sim::grid::rows.x * sim::grid::rows.y*/];
-		for (size_t j = 0; j < 100/*sim::grid::rows.x * sim::grid::rows.y*/; j++)
+		for (int j = 0; j < 100/*sim::grid::rows.x * sim::grid::rows.y*/; j++)
 		{
 			density_array[j] = (current_density[j] + change * get_average(j, new_density_array)) / (1 + change);
 		}
@@ -31,6 +31,7 @@ float* sim::physics::calc_dichtheid(float current_density[])
 
 float get_average(int index, float density[])
 {
+	index = index + 1;
 	float avrage = 0.0f;
 	int side[1];
 
@@ -69,7 +70,9 @@ float get_average(int index, float density[])
 
 	for (int i = 0; i < IM_ARRAYSIZE(side); i++)
 	{
-		avrage += density[side[i]];
+		avrage += density[side[i] - 1];
 	}
 	return avrage / IM_ARRAYSIZE(side);
 }
+
+
