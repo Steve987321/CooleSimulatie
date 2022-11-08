@@ -11,10 +11,7 @@ float* sim::physics::calc_dichtheid(float current_density[])
 	float new_density_array[100/*sim::grid::rows.x * sim::grid::rows.y*/];
 	
 	//next_density = (current_density + change * average_density) / (1 + change);
-
-	// set array items to 0
-	//for (int i = 0; i < sizeof(new_density_array); i++) { new_density_array[i] = 0.0f; }
-
+	// 
 	// get new density
 	for (int i = 0; i < 4; i++)
 	{
