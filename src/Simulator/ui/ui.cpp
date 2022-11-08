@@ -57,7 +57,8 @@ void sim::ui::render_ui()
 		ImGui::Text("FPS %.1f", 1.f / p_Sim->deltatime.asSeconds());
 
 		static bool test = false;
-		//ImGui::SliderFloat("timestep", &sim);
+		static float sim = 0.0f;
+		ImGui::SliderFloat("timestep", &sim, 100.0f, 0.0f);
 		ImGui::Checkbox("checkbox", &test);
 		ImGui::End();
 	}
