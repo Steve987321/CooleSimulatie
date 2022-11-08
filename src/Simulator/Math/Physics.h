@@ -12,6 +12,7 @@ namespace physics
 	/// @param n 
 	/// @return 
 	float* calc_dichtheid(float current_density[]);
+
 	float get_average(int index, float density[]);
 }
 

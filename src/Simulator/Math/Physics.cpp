@@ -26,11 +26,11 @@ float* sim::physics::calc_dichtheid(float current_density[])
 	return new_density_array;
 }
 
-float get_average(int index, float density[])
+float sim::physics::get_average(int index, float density[])
 {
 	index = index + 1;
 	float avrage = 0.0f;
-	int side[1];
+	int side[4] = {-1, -1, -1, -1};
 
 	if (index == 1) { side[0] = 2; side[1] = 11; }
 
@@ -41,34 +41,22 @@ float get_average(int index, float density[])
 	else if (index == 100) { side[0] = 99; side[1] = 90; }
 
 	else if (index % 10 == 1)
-	{
-		side[0] = index + 1; side[1] = index + 10; side[2] = index - 10;
-	}
+	{ side[0] = index + 1; side[1] = index + 10; side[2] = index - 10; }
 
 	else if (index % 10 == 0)
-	{
-		side[0] = index - 1; side[1] = index - 10; side[2] = index + 10;
-	}
+	{ side[0] = index - 1; side[1] = index - 10; side[2] = index + 10; }
 
 	else if (index < 10)
-	{
-		side[0] = index - 1; side[1] = index + 1; side[2] = index + 10;
-	}
+	{ side[0] = index - 1; side[1] = index + 1; side[2] = index + 10; }
 
 	else if (index > 91)
-	{
-		side[0] = index - 1; side[1] = index + 1; side[2] = index - 10;
-	}
+	{ side[0] = index - 1; side[1] = index + 1; side[2] = index - 10; }
 
 	else
-	{
-		side[0] = index - 1; side[1] = index + 1; side[2] = index + 10; side[3] = index - 10;
-	}
+	{ side[0] = index - 1; side[1] = index + 1; side[2] = index + 10; side[3] = index - 10; }
 
 	for (int i = 0; i < IM_ARRAYSIZE(side); i++)
-	{
-		avrage += density[side[i] - 1];
-	}
+	{ avrage += density[side[i] - 1]; }
 	return avrage / IM_ARRAYSIZE(side);
 }
 
