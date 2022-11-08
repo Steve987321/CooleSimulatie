@@ -57,8 +57,7 @@ void sim::ui::render_ui()
 		ImGui::Text("FPS %.1f", 1.f / p_Sim->deltatime.asSeconds());
 
 		static bool test = false;
-		static float sim = 0.0f;
-		ImGui::SliderFloat("timestep", &sim, 100.0f, 0.0f);
+		ImGui::SliderInt("timestep", &sim::p_Sim->timestep, 0, 200000);
 		ImGui::Checkbox("checkbox", &test);
 		ImGui::End();
 	}
@@ -68,8 +67,8 @@ void sim::ui::render_ui()
 		if (sim::grid::gridvec.empty())
 			ImGui::BeginDisabled();
 
-		static int selected_item = -1;
-		static char buf[50];
+		//static int selected_item = -1;
+		//static char buf[50];
 
 		ImGui::Text("scene");
 		ImGui::Separator();
@@ -80,7 +79,7 @@ void sim::ui::render_ui()
 				const bool is_selected = (i == selected_item);
 				if (ImGui::Selectable(sim::grid::gridvec[i]->get_name().c_str(), is_selected))
 				{
-					strcpy_s(buf, sim::grid::gridvec[i]->get_name().c_str());
+					strcpy_s(selected_item_name, sim::grid::gridvec[i]->get_name().c_str());
 					selected_item = i;
 				}
 
@@ -93,16 +92,18 @@ void sim::ui::render_ui()
 		ImGui::BeginChild("current inspected object", ImGui::GetWindowSize() / ImVec2(1.12, 2) - ImVec2(-5, -5), true);
 		{
 			static float col[3];
+			static float density;
+			if (ImGui::InputText("name", selected_item_name, 50))
+				sim::grid::gridvec[selected_item]->set_name(selected_item_name);
 
-			if (ImGui::InputText("name", buf, 50))
-				sim::grid::gridvec[selected_item]->set_name(buf);
+			if (ImGui::SliderFloat("density", &density, 0.0f, 1.0f))
+				sim::grid::gridvec[selected_item]->set_density(density);
 
 			if (ImGui::ColorPicker3("color", col))
 				sim::grid::gridvec[selected_item]->set_color(sf::Color(col[0] * 255, col[1] * 255, col[2] * 255));
 
 			ImGui::EndChild();
 		}
-
 
 		if (sim::grid::gridvec.empty())
 			ImGui::EndDisabled();

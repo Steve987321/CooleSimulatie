@@ -17,3 +17,7 @@ std::string sim::Square::get_name() const
 	 return m_name; 
 }
 
+void sim::Square::set_density(float density)
+{
+	m_density = density;
+}

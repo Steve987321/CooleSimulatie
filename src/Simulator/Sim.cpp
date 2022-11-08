@@ -35,15 +35,37 @@ void Simulator::event_handler()
 		switch (event.type)
 		{
 		case sf::Event::Closed:
+		{
+			log_Ok("closing window");
 			window.close();
 			break;
+		}
+		case sf::Event::MouseButtonPressed:
+		{
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				for (int i=0;i<sim::grid::gridvec.size();i++)
+				{
+					if (sim::grid::gridvec[i]->Shape.getGlobalBounds().contains(
+						sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)
+					))
+					{
+						log_Debug("%d", i);
+						//sim::ui::selected_item_name = sim::grid::gridvec[i]->get_name().c_str();
+						strcpy_s(sim::ui::selected_item_name, sim::grid::gridvec[i]->get_name().c_str());
+						sim::ui::selected_item = i;
+					}
+				}
+			}
+			break;
+		}
+			
 		}
 	}
 }
 
 void Simulator::Render()
 {
-
 	// show ui
 	ui::render_ui();
 

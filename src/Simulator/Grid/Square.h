@@ -12,7 +12,7 @@ private:
 	sf::Vector2f m_velocity = {};
 
 	float m_density = 0.1f; 
-	float m_temperature = 0.1f;
+	float m_temperature = 0.1f; 
 
 public:
 	sf::RectangleShape Shape;
@@ -26,6 +26,7 @@ public:
 
 	void set_name(std::string_view name);
 	std::string get_name() const;
+	void set_density(float density);
 
 	//void update_pos();
 };

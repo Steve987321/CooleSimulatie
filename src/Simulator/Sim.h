@@ -35,6 +35,7 @@ namespace sim
 
 	public:
 		sf::Time deltatime;
+		int timestep = 2e5;
 
 	public:
 		// initialize the simulation
