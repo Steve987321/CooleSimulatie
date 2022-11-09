@@ -50,15 +50,43 @@ void sim::ui::decorations()
 
 void sim::ui::render_ui()
 {
+	std::once_flag flag;
 	decorations();
 
 	if (ImGui::Begin("Settings"))
 	{
+		ImDrawList* draw = ImGui::GetWindowDrawList();
+
 		ImGui::Text("FPS %.1f", 1.f / p_Sim->deltatime.asSeconds());
 
-		static bool test = false;
-		ImGui::SliderInt("timestep", &sim::p_Sim->timestep, 0, 200000);
-		ImGui::Checkbox("checkbox", &test);
+		static float col0[4];
+		static float col1[4];
+
+		std::call_once(flag, []()
+			{
+				sim::set_Float4FromVec4(col0, reinterpret_cast<void*>(&sim::grid::dens0Col));
+				sim::set_Float4FromVec4(col1, reinterpret_cast<void*>(&sim::grid::dens1Col));
+			});
+		
+		if (ImGui::SliderInt("timestep", &sim::p_Sim->timestep, 0, 200000));
+		{
+			// 
+		}
+		
+		if (ImGui::Checkbox("pause timestep", &sim::p_Sim->isPaused)) 
+		{
+			//
+		}
+
+		if (ImGui::ColorEdit4("color 0", col0, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens0Col), col0); }
+		if (ImGui::ColorEdit4("color 1", col1, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens1Col), col1); }
+		
+		draw->AddRectFilledMultiColor(ImGui::GetWindowPos() + ImGui::GetCursorPos(), ImGui::GetWindowPos() + ImGui::GetCursorPos() + ImVec2(ImGui::GetWindowSize().x - 15, 10),
+			ImGui::ColorConvertFloat4ToU32(sim::grid::dens0Col),
+			ImGui::ColorConvertFloat4ToU32(sim::grid::dens1Col),
+			ImGui::ColorConvertFloat4ToU32(sim::grid::dens1Col),
+			ImGui::ColorConvertFloat4ToU32(sim::grid::dens0Col)
+			);
 		ImGui::End();
 	}
 
@@ -82,27 +110,27 @@ void sim::ui::render_ui()
 					strcpy_s(selected_item_name, sim::grid::gridvec[i]->get_name().c_str());
 					selected_item = i;
 				}
-
 			}
 			ImGui::EndChild();
 		}
 
-		
-		//ImGui::Text(sim::grid::gridvec[selected_item]->get_name().c_str());
-		ImGui::BeginChild("current inspected object", ImGui::GetWindowSize() / ImVec2(1.12, 2) - ImVec2(-5, -5), true);
-		{
-			static float col[3];
-			static float density;
-			if (ImGui::InputText("name", selected_item_name, 50))
-				sim::grid::gridvec[selected_item]->set_name(selected_item_name);
+		if (sim::ui::selected_item >= 0) {
+			//ImGui::Text(sim::grid::gridvec[selected_item]->get_name().c_str());
+			ImGui::BeginChild("current inspected object", ImGui::GetWindowSize() / ImVec2(1.12, 2) - ImVec2(-5, -5), true);
+			{
+				static float density;
 
-			if (ImGui::SliderFloat("density", &density, 0.0f, 1.0f))
-				sim::grid::gridvec[selected_item]->set_density(density);
+				if (ImGui::InputText("name", selected_item_name, 50))
+					sim::grid::gridvec[selected_item]->set_name(selected_item_name);
 
-			if (ImGui::ColorPicker3("color", col))
-				sim::grid::gridvec[selected_item]->set_color(sf::Color(col[0] * 255, col[1] * 255, col[2] * 255));
+				if (ImGui::SliderFloat("density", &density, 0.0f, 1.0f))
+					sim::grid::gridvec[selected_item]->set_density(density);
 
-			ImGui::EndChild();
+				//if (ImGui::ColorPicker3("color", col))
+				//	sim::grid::gridvec[selected_item]->set_color(sf::Color(col[0] * 255, col[1] * 255, col[2] * 255));
+
+				ImGui::EndChild();
+			}
 		}
 
 		if (sim::grid::gridvec.empty())

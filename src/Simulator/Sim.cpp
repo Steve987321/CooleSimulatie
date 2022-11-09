@@ -12,12 +12,13 @@ bool Simulator::init_window()
 	for (int i = 0; i < sim::grid::rows.x; i++)
 		for (int j = 0; j < sim::grid::rows.y; j++)
 		{
-			auto square = std::make_unique<Square>(sf::Vector2f(40, 40));
+			auto square = std::make_unique<Square>(sf::Vector2f(10, 10));
 
 			square->set_name("square (" + std::to_string(sim::grid::gridvec.size() + 1) + ')');
 			square->set_color(sf::Color::White);
 
-			square->Shape.setPosition(sf::Vector2f(100 + i * 50, 60 + j * 50));
+			square->Shape.setPosition(sf::Vector2f(i * 10, j * 10));
+			square->set_truePos(sf::Vector2i(i, j));
 
 			sim::grid::gridvec.emplace_back(std::move(square)); // it is unique 
 		}
@@ -44,17 +45,23 @@ void Simulator::event_handler()
 		{
 			if (event.mouseButton.button == sf::Mouse::Left)
 			{
-				for (int i=0;i<sim::grid::gridvec.size();i++)
-				{
-					if (sim::grid::gridvec[i]->Shape.getGlobalBounds().contains(
-						sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)
-					))
+				if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
+					int selection = -1;
+
+					for (int i = 0; i < sim::grid::gridvec.size(); i++)
 					{
-						log_Debug("%d", i);
-						//sim::ui::selected_item_name = sim::grid::gridvec[i]->get_name().c_str();
-						strcpy_s(sim::ui::selected_item_name, sim::grid::gridvec[i]->get_name().c_str());
-						sim::ui::selected_item = i;
+						if (sim::grid::gridvec[i]->Shape.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)
+						))
+						{
+							//log_Debug("%d", IX(sim::grid::gridvec[i]->getXpos(), sim::grid::gridvec[i]->getYpos()));
+							//log_Debug("%d", i);
+							//sim::ui::selected_item_name = sim::grid::gridvec[i]->get_name().c_str();
+							strcpy_s(sim::ui::selected_item_name, sim::grid::gridvec[i]->get_name().c_str());
+							selection = i;
+							break;
+						}
 					}
+					sim::ui::selected_item = selection;
 				}
 			}
 			break;
@@ -90,6 +97,14 @@ void Simulator::Render()
 	window.display();
 }
 
+void Simulator::update_vars()
+{
+	if (sim::p_Sim->isPaused) return;
+
+	// math
+
+}
+
 bool Simulator::init()
 {
 	log_Debug("init");
@@ -105,8 +120,8 @@ void Simulator::run()
 		// update deltatime
 		deltatime = deltaclock.restart();
 
-		// update vars
-
+		// calculate vars for the simulations
+		update_vars();
 
 		// update imgui sfml
 		ImGui::SFML::Update(window, deltatime);
@@ -118,6 +133,11 @@ void Simulator::run()
 		Render();
 	}
 	clean_up();
+}
+
+ImVec2 Simulator::get_windowPos() const
+{
+	return ImVec2(this->window.getPosition().x, this->window.getPosition().y);
 }
 
 void Simulator::clean_up()

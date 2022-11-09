@@ -258,9 +258,9 @@ struct ImVec2
     float  operator[] (size_t idx) const    { IM_ASSERT(idx <= 1); return (&x)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
     float& operator[] (size_t idx)          { IM_ASSERT(idx <= 1); return (&x)[idx]; }    // We very rarely use this [] operator, the assert overhead is fine.
     
-    ImVec2 operator/   (const ImVec2& other) { return ImVec2(x / other.x, y / other.y);  } // diviosn
-    ImVec2 operator-   (const ImVec2& other) { return ImVec2(x - other.x, y - other.y); } // diviosn
-
+    ImVec2 operator/   (const ImVec2& other) { return ImVec2(x / other.x, y / other.y); }  // diviosn
+    ImVec2 operator-   (const ImVec2& other) { return ImVec2(x - other.x, y - other.y); }   // min
+    ImVec2 operator+   (const ImVec2& other) { return ImVec2(x + other.x, y + other.y); }   // plus
 #ifdef IM_VEC2_CLASS_EXTRA
     IM_VEC2_CLASS_EXTRA     // Define additional constructors and implicit cast operators in imconfig.h to convert back and forth between your math types and ImVec2.
 #endif

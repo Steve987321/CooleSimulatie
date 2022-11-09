@@ -13,6 +13,7 @@
 #include "Grid\Grid.h"
 #include "ui/ui.h"
 #include "Helpers/Helpers.h"
+#include "Math/Physics.h"
 #include "Types.h"
 
 #define WINDOW_FPS 60
@@ -31,18 +32,24 @@ namespace sim
 		bool init_window();
 		void event_handler();
 		void Render();
+		void update_vars();
 		void clean_up();
 
 	public:
 		sf::Time deltatime;
 		int timestep = 2e5;
 
+		sf::Color density;
+		bool isPaused = false;
 	public:
 		// initialize the simulation
 		bool init();
 
 		// rendering and event handling 
 		void run();
+
+		// get the window position
+		ImVec2 get_windowPos() const;
 	};
 
 	inline std::unique_ptr<Simulator> p_Sim;

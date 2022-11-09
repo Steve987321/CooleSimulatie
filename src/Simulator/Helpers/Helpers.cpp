@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Helpers.h"
+#include <imgui/imgui.h>
 
 namespace sim
 {
@@ -16,5 +17,21 @@ namespace sim
 		std::mt19937 gen(rd());
 		std::uniform_real_distribution<float> dis(min, max);
 		return dis(gen);
+	}
+	void set_ImVec4(void* dst, float src[4])
+	{
+		auto col = reinterpret_cast<ImVec4*>(dst);
+		col->x = src[0];
+		col->y = src[1];
+		col->z = src[2];
+		col->w = src[3];
+	}
+	void set_Float4FromVec4(float col[4], void* src)
+	{
+		auto vec_col = reinterpret_cast<ImVec4*>(src);
+		col[0] = vec_col->x;	
+		col[1] = vec_col->y;	
+		col[2] = vec_col->z;	
+		col[3] = vec_col->w;	
 	}
 }

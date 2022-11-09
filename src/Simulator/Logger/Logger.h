@@ -48,7 +48,7 @@ public:
 		switch (type)
 		{
 		case log_type::LDEBUG:
-			logtypec = "[.]";
+			logtypec = "[#]";
 			break;
 		case log_type::LERROR:
 			logtypec = "[-]";

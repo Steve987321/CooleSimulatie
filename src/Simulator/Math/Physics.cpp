@@ -1,22 +1,16 @@
 #include "pch.h"
 #include "Physics.h"
-#include "./Simulator/Sim.h"
 #include <imgui/imgui.h>
 
-float* sim::physics::calc_dichtheid(float current_density[])
+float* sim::physics::calc_dichtheid(float current_density[], float change)
 {
-	// vars
-	const float change = 1.0f;
-
-	float new_density_array[100/*sim::grid::rows.x * sim::grid::rows.y*/];
+	float new_density_array[IM_ARRAYSIZE(current_density)];
 	
-	//next_density = (current_density + change * average_density) / (1 + change);
-	// 
 	// get new density
 	for (int i = 0; i < 4; i++)
 	{
-		float density_array[100/*sim::grid::rows.x * sim::grid::rows.y*/];
-		for (int j = 0; j < 100/*sim::grid::rows.x * sim::grid::rows.y*/; j++)
+		float density_array[IM_ARRAYSIZE(current_density)];
+		for (int j = 0; j < IM_ARRAYSIZE(current_density); j++)
 		{
 			density_array[j] = (current_density[j] + change * get_average(j, new_density_array)) / (1 + change);
 		}
