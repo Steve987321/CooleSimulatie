@@ -99,10 +99,14 @@ void Simulator::Render()
 
 void Simulator::update_vars()
 {
+	// checks
 	if (sim::p_Sim->isPaused) return;
+	if (sim::p_Sim->previous_timestep == sim::p_Sim->timestep) return;
 
 	// math
+	float densitys[sim::grid::rows];
 
+	sim::p_Sim->previous_timestep = sim::p_Sim->timestep;
 }
 
 bool Simulator::init()
