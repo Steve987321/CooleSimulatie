@@ -3,12 +3,13 @@ namespace sim
 {
 	namespace grid {
 		
-		constexpr int size = 50;
+		constexpr int size = 70;
+		constexpr int scale = 8;
 		constexpr float dt = 0.2f;
 		constexpr float diff = 0;
 		constexpr float visc = 0.0000001f;
 
-		inline const sf::Vector2i rows = sf::Vector2i(size, size);
+		//inline const sf::Vector2i rows = sf::Vector2i(size, size);
 
 		inline std::vector<std::unique_ptr<Square>> gridvec;
 
@@ -50,7 +51,7 @@ namespace sim
 		void AddDensity(float x, float y, float amount);
 		void AddVelocity(float x, float y, float px, float py);
 
-		void Update(int i,int j);
+		void Update(sf::RenderWindow& win);
 
 		sf::Color Hsv(int hue, float sat, float val, float d);
 	};

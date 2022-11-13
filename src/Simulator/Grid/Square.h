@@ -13,7 +13,7 @@ public:
 	sf::RectangleShape Shape;
 
 public:
-	Square() { Shape.setSize(sf::Vector2f(10, 10)); Shape.setOutlineColor(sf::Color(255, 255, 255)); }
+	//Square() { Shape.setSize(sf::Vector2f(10,10)); Shape.setOutlineColor(sf::Color(255, 255, 255)); }
 	Square(const sf::Vector2f& vec) { Shape.setSize(vec); }
 
 public:

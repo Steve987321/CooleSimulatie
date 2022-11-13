@@ -45,10 +45,19 @@ void sim::Grid::AddVelocity(float x, float y, float px, float py)
 	this->y[index] += py;
 }
 
-void sim::Grid::Update(int i, int j)
+void sim::Grid::Update(sf::RenderWindow& win)
 {
 	apply_physics();
-	sim::grid::gridvec[i]->Shape.setFillColor(sf::Color(255, 255, 255, (this->density[IX(i, j, this->size)] > 255) ? 255 : this->density[IX(i, j, this->size)]));
+	for (int i = 0; i < this->size; i++) {
+		for (int j = 0; j < this->size; j++) {
+			sf::RectangleShape rect;
+			rect.setSize(sf::Vector2f(grid::scale, grid::scale));
+			rect.setPosition(j * grid::scale, i * grid::scale);
+			//rect.setFillColor(sf::Color(255, 255, 255, (this->density[IX(i, j, this->size)] > 255) ? 255 : this->density[IX(i, j, this->size)]));
+            rect.setFillColor(this->Hsv((this->density[IX(i, j, this->size)]), 1, 1, 255));
+			win.draw(rect);
+		}
+	}
 	FadeDensity(size*size);
 }
 
