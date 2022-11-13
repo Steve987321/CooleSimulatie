@@ -76,6 +76,7 @@ void sim::ui::render_ui()
 		if (ImGui::Checkbox("pause timestep", &sim::p_Sim->isPaused)) 
 		{
 			//
+			p_Sim->timestep = 0;
 		}
 
 		if (ImGui::ColorEdit4("color 0", col0, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens0Col), col0); }
@@ -123,8 +124,8 @@ void sim::ui::render_ui()
 				if (ImGui::InputText("name", selected_item_name, 50))
 					sim::grid::gridvec[selected_item]->set_name(selected_item_name);
 
-				if (ImGui::SliderFloat("density", &density, 0.0f, 1.0f))
-					sim::grid::gridvec[selected_item]->set_density(density);
+				/*if (ImGui::SliderFloat("density", &density, 0.0f, 1.0f))
+					sim::grid::gridvec[selected_item]->set_density(density);*/
 
 				//if (ImGui::ColorPicker3("color", col))
 				//	sim::grid::gridvec[selected_item]->set_color(sf::Color(col[0] * 255, col[1] * 255, col[2] * 255));

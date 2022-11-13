@@ -27,8 +27,10 @@ namespace sim
 	private:
 		sf::RenderWindow window;
 		sf::Clock deltaclock;
-		
+
+	private:
 		int previous_timestep = 0;
+
 	private:
 		bool init_window();
 		void event_handler();

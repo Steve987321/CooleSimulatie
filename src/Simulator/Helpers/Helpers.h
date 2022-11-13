@@ -14,4 +14,8 @@ namespace sim
 
 	/// @brief set a float4 from imvec4
 	extern void set_Float4FromVec4(float col[4], void* src);
+
+	/// @brief turn x,y into array index
+	/// @return array index
+	int IX(int x, int y, int N);
 }

@@ -92,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Simulator\Grid\Grid.cpp" />
     <ClCompile Include="src\Simulator\Math\Physics.cpp" />
     <ClCompile Include="src\Simulator\Helpers\Helpers.cpp" />
     <ClCompile Include="src\Simulator\Grid\Square.cpp" />

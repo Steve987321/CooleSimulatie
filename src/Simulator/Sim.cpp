@@ -18,7 +18,6 @@ bool Simulator::init_window()
 			square->set_color(sf::Color::White);
 
 			square->Shape.setPosition(sf::Vector2f(i * 10, j * 10));
-			square->set_truePos(sf::Vector2i(i, j));
 
 			sim::grid::gridvec.emplace_back(std::move(square)); // it is unique 
 		}
@@ -83,7 +82,12 @@ void Simulator::Render()
 
 	for (int i = 0; i < sim::grid::gridvec.size(); i++)
 	{
+		for (int j = 0; j < sim::grid::gridvec.size(); j++)
+		{
+			sim::p_Grid->Update(i, j);
+		}
 		window.draw(sim::grid::gridvec[i]->Shape);
+
 		//log_Debug("x: %.2f y: %.2f \n", sim::grid::gridvec[i]->Shape.getPosition().x, sim::grid::gridvec[i]->Shape.getPosition().x);
 	}
 		
@@ -99,14 +103,14 @@ void Simulator::Render()
 
 void Simulator::update_vars()
 {
-	// checks
-	if (sim::p_Sim->isPaused) return;
-	if (sim::p_Sim->previous_timestep == sim::p_Sim->timestep) return;
+	//// checks
+	//if (sim::p_Sim->isPaused) return;
+	//if (sim::p_Sim->previous_timestep == sim::p_Sim->timestep) return;
 
-	// math
-	float densitys[sim::grid::rows];
+	//// math
+	//float densitys[sim::grid::rows];
 
-	sim::p_Sim->previous_timestep = sim::p_Sim->timestep;
+	//sim::p_Sim->previous_timestep = sim::p_Sim->timestep;
 }
 
 bool Simulator::init()

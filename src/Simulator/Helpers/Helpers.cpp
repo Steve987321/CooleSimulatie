@@ -29,9 +29,19 @@ namespace sim
 	void set_Float4FromVec4(float col[4], void* src)
 	{
 		auto vec_col = reinterpret_cast<ImVec4*>(src);
-		col[0] = vec_col->x;	
-		col[1] = vec_col->y;	
-		col[2] = vec_col->z;	
-		col[3] = vec_col->w;	
+		col[0] = vec_col->x;
+		col[1] = vec_col->y;
+		col[2] = vec_col->z;
+		col[3] = vec_col->w;
+	}
+
+	int IX(int x, int y, int N)
+	{
+		if (x < 0) { x = 0; }
+		if (x > N - 1) { x = N - 1; }
+
+		if (y < 0) { y = 0; }
+		if (y > N - 1) { y = N - 1; }
+		return (y * N) + x;
 	}
 }
