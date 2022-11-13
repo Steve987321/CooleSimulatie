@@ -11,9 +11,10 @@ namespace sim
 
 		//inline const sf::Vector2i rows = sf::Vector2i(size, size);
 
+		inline int mode = 0;
+		inline ImVec4 dens0Col = { 0,0,0, 1 }, dens1Col = {1,1,1,1};
 		inline std::vector<std::unique_ptr<Square>> gridvec;
 
-		inline ImVec4 dens0Col = { 0, 0, 0, 1 }, dens1Col = { 1,1,1,1 };
 	}
 
 	class Grid

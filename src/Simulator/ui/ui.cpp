@@ -68,15 +68,11 @@ void sim::ui::render_ui()
 				sim::set_Float4FromVec4(col1, reinterpret_cast<void*>(&sim::grid::dens1Col));
 			});
 		
+		ImGui::Combo("Color Mode", &sim::grid::mode, gridModes, IM_ARRAYSIZE(gridModes));
+
 		if (ImGui::SliderInt("timestep", &sim::p_Sim->timestep, 0, 200000));
 		{
 			// 
-		}
-		
-		if (ImGui::Checkbox("pause timestep", &sim::p_Sim->isPaused)) 
-		{
-			//
-			p_Sim->timestep = 0;
 		}
 
 		if (ImGui::ColorEdit4("color 0", col0, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens0Col), col0); }

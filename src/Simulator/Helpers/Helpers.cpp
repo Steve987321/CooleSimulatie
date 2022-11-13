@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Helpers.h"
-#include <imgui/imgui.h>
 
 namespace sim
 {
@@ -43,5 +42,47 @@ namespace sim
 		if (y < 0) { y = 0; }
 		if (y > N - 1) { y = N - 1; }
 		return (y * N) + x;
+	}
+
+	sf::Color Lerp(const sf::Color& a, const sf::Color& b, float val)
+	{
+		if (val > 255) val = 255;
+		if (val < 0) val = 0;
+
+		val /= 255;
+
+		return sf::Color(
+			(a.r + b.r) * val, 
+			(a.g + b.g) * val,
+			(a.b + b.b) * val
+			);
+
+	}	
+	
+	
+	sf::Color Lerp(const ImVec4& a, const ImVec4& b, float val)
+	{
+		
+		//if (val > 100) val = 100;
+		//if (val < 0) val = 0;
+
+		val /= 100;
+
+		/*if ((a.x + b.x) * val * 255.f > 100.f)
+			printf("%.3f\n", (a.x + b.x) * val * 255.f);*/
+
+		auto f = sf::Color(
+			(a.x + b.x) * val * 255 > 255 ? 255 : (a.x + b.x) * val * 255,
+			(a.y + b.y) * val * 255 > 255 ? 255 : (a.y + b.y) * val * 255,
+			(a.z + b.z) * val * 255 > 255 ? 255 : (a.z + b.z) * val * 255
+			);
+
+		/*auto f = sf::Color(
+			a.x + (a.x - b.x) * val * 255 > 255 ? 255 : (a.x + b.x) * val * 255,
+			a.y + (a.y - b.y) * val * 255 > 255 ? 255 : (a.y + b.y) * val * 255,
+			a.z + (a.z - b.z) * val * 255 > 255 ? 255 : (a.z + b.z) * val * 255
+		);*/
+
+		return f;
 	}
 }

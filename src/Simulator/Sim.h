@@ -43,7 +43,6 @@ namespace sim
 		int timestep = 2e5;
 
 		sf::Color density;
-		bool isPaused = false;
 	public:
 		// initialize the simulation
 		bool init();

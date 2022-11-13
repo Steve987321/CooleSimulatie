@@ -1,4 +1,8 @@
 #pragma once
+
+#include <SFML/Graphics/Color.hpp>
+#include <imgui/imgui.h>
+
 namespace sim
 {
 	/// @brief make sure min isn't bigger then max
@@ -18,4 +22,9 @@ namespace sim
 	/// @brief turn x,y into array index
 	/// @return array index
 	int IX(int x, int y, int N);
+
+	/// @brief get color inbetween the value 
+	/// @param t the distance in between
+	extern sf::Color Lerp(const sf::Color& a, const sf::Color& b, float t);
+	extern sf::Color Lerp(const ImVec4& a, const ImVec4& b, float t);
 }

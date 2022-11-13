@@ -69,16 +69,18 @@ void Simulator::event_handler()
 					}
 				}
 
-				// RMB pressed
-				if (event.mouseButton.button == sf::Mouse::Right)
-				{
-					p_Grid->AddDensity(currMouse.y / grid::scale, currMouse.x / grid::scale, 200);
-				}
 				break;
 			}
 			
 		} // switch event
 
+		// RMB pressed
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		{
+			p_Grid->AddDensity(currMouse.y / grid::scale, currMouse.x / grid::scale, 200);
+		}
+
+		currMouse = sf::Mouse::getPosition(window);
 
 		float amountX = currMouse.x - prevMouse.x;
 		float amountY = currMouse.y - prevMouse.y;
