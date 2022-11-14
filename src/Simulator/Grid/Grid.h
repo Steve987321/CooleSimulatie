@@ -36,8 +36,6 @@ namespace sim
 		float density[size * size] = { 0 };
 
 	private:
-		// void InitArr(float arr[], int size); c++: int Arr[10] = { 0 } alle elements 0 
-
 		// gebruikt je alleen voor visualizing velocity in grid
 		float MapToRange(float value, float minIn, float maxIn, float minOut, float maxOut);
 		void apply_physics();
@@ -52,6 +50,7 @@ namespace sim
 		void AddDensity(float x, float y, float amount);
 		void AddVelocity(float x, float y, float px, float py);
 
+		/// @brief update the grid squares variables
 		void Update(sf::RenderWindow& win);
 
 		sf::Color Hsv(int hue, float sat, float val, float d);

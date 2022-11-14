@@ -50,31 +50,27 @@ void sim::Grid::Update(sf::RenderWindow& win)
 	apply_physics();
 	for (int i = 0; i < this->size; i++) {
 		for (int j = 0; j < this->size; j++) {
-			sf::RectangleShape rect;
-			rect.setSize(sf::Vector2f(grid::scale, grid::scale));
-			rect.setPosition(j * grid::scale, i * grid::scale);
-
-            sf::Color col(255, 255, 255);
-
+			sf::RectangleShape* rect = &grid::gridvec[IX(j,i,size)]->Shape;
+            sf::Color col;
             switch (grid::mode)
             {
             default:
             case 0: // density
                 col = sim::Lerp(sim::grid::dens0Col, sim::grid::dens1Col, (this->density[IX(i, j, this->size)] > 255) ? 255 : this->density[IX(i, j, this->size)]);
-                rect.setFillColor(col);
+                rect->setFillColor(col);
                 //rect.setFillColor(sf::Color(255, 255, 255, (this->density[IX(i, j, this->size)] > 255) ? 255 : this->density[IX(i, j, this->size)]));
                 break;
             case 1: // hsv
-                rect.setFillColor(this->Hsv((this->density[IX(i, j, this->size)]), 1, 1, 255));
+                rect->setFillColor(this->Hsv((this->density[IX(i, j, this->size)]), 1, 1, 255));
                 break;
             case 2: // velocity
                 int r = (int)this->MapToRange(this->x[IX(i, j, this->size)], -0.05f, 0.05f, 0, 255);
                 int g = (int)this->MapToRange(this->y[IX(i, j, this->size)], -0.05f, 0.05f, 0, 255);
-                rect.setFillColor(sf::Color(r, g, 255));
+                rect->setFillColor(sf::Color(r, g, 255));
                 break;
             }
 			
-			win.draw(rect);
+			win.draw(*rect);
 		}
 	}
 	FadeDensity(size*size);
