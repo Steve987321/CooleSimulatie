@@ -24,6 +24,7 @@ void sim::Grid::apply_physics()
 	p_Physics->Diffuse(0, this->previousDensity, this->density, this->diff, this->dt, 16, this->size);
 	p_Physics->Advect(0, this->density, this->previousDensity, this->x, this->y, this->dt, this->size);
 }
+
 void sim::Grid::FadeDensity(int size)
 {
     for (int i = 0; i < size; i++) {

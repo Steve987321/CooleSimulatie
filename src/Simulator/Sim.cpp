@@ -26,11 +26,6 @@ bool Simulator::init_window()
 
 void Simulator::event_handler()
 {
-
-	sf::Vector2i prevMouse = sf::Mouse::getPosition(window);
-	sf::Vector2i currMouse = sf::Mouse::getPosition(window);
-
-
 	sf::Event event;
 	while (window.pollEvent(event))
 	{
@@ -44,11 +39,21 @@ void Simulator::event_handler()
 				window.close();
 				break;
 			}
+			case sf::Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+					this->LMB_down = false;
+				if (event.mouseButton.button == sf::Mouse::Right)
+					this->RMB_down = false;
+				break;
+			}
 			case sf::Event::MouseButtonPressed:
 			{
+				mouse_pos = sf::Mouse::getPosition(window);
 				// LMB pressed
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
+					this->LMB_down = true;
 					if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
 						int selection = -1;
 
@@ -68,23 +73,21 @@ void Simulator::event_handler()
 						sim::ui::selected_item = selection;
 					}
 				}
-
+				else if (event.mouseButton.button == sf::Mouse::Right)
+				{
+					this->RMB_down = true;
+				}
+				
 				break;
 			}
 			
 		} // switch event
 
-		// RMB pressed
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-		{
-			p_Grid->AddDensity(currMouse.y / grid::scale, currMouse.x / grid::scale, 200);
-		}
-
-		currMouse = sf::Mouse::getPosition(window);
-
-		float amountX = currMouse.x - prevMouse.x;
-		float amountY = currMouse.y - prevMouse.y;
-		p_Grid->AddVelocity(currMouse.y / grid::scale, currMouse.x / grid::scale, amountY / 10, amountX / 10);
+		//// RMB down
+		//if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		//{
+		//	p_Grid->AddDensity(currMouse.y / grid::scale, currMouse.x / grid::scale, 200);
+		//}
 	}
 }
 
@@ -97,10 +100,9 @@ void Simulator::Render()
 
 	//--------------------draw------------------------//
 	
+	// update the grid and draw the grid
 	sim::p_Grid->Update(window);	
 
-	//for (auto& Square : sim::grid::gridvec)
-	//	window.draw(Square->Shape);
 
 	// imgui
 	ImGui::SFML::Render(window);
@@ -132,6 +134,11 @@ bool Simulator::init()
 
 void Simulator::run()
 {
+	std::once_flag flag;
+
+	this->is_running = true;
+	input_thread = std::thread(&sim::Simulator::input, this);
+
 	while (window.isOpen())
 	{
 		// update deltatime
@@ -160,8 +167,32 @@ ImVec2 Simulator::get_windowPos() const
 void Simulator::clean_up()
 {
 	log_Debug("clean up");
+	this->is_running = false;
 	ImGui::SFML::Shutdown();
 	window.close();
+}
+
+void Simulator::input()
+{
+	while (this->is_running)
+	{	
+		// LMB held
+		if (this->LMB_down)
+		{
+			mouse_pos = sf::Mouse::getPosition(window);
+			ImVec2 mDelta = ImGui::GetMouseDragDelta(0, 0);
+			p_Grid->AddVelocity(mouse_pos.y / grid::scale, mouse_pos.x / grid::scale, mDelta.y / 10, mDelta.x / 10);
+			ImGui::ResetMouseDragDelta();
+		}
+		if (this->RMB_down)
+		{
+			mouse_pos = sf::Mouse::getPosition(window);
+			p_Grid->AddDensity(mouse_pos.y / grid::scale, mouse_pos.x / grid::scale, 200);
+		}
+
+		if (!window.hasFocus()) std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+	}
 }
 
 }

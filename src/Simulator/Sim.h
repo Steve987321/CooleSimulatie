@@ -29,14 +29,21 @@ namespace sim
 		sf::Clock deltaclock;
 
 	private:
-		int previous_timestep = 0;
+		std::thread input_thread;
 
+	private:
+		std::atomic_bool is_running = false;
+		sf::Vector2i mouse_pos = { };
+
+		bool LMB_down = false;
+		bool RMB_down = false;
 	private:
 		bool init_window();
 		void event_handler();
 		void Render();
 		void update_vars();
 		void clean_up();
+		void input();
 
 	public:
 		sf::Time deltatime;

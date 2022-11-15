@@ -36,15 +36,14 @@ namespace sim
 		float density[size * size] = { 0 };
 
 	private:
-		// gebruikt je alleen voor visualizing velocity in grid
+		// gebruikt je alleen voor de visualizering van de velocity in grid
 		float MapToRange(float value, float minIn, float maxIn, float minOut, float maxOut);
-		void apply_physics();
-		void FadeDensity(int size);
 
-	public:
-		//Grid();
-		//Grid(float dt, float diff, float visc);
-		//~Grid();
+		// de physics class toepassen op de grid
+		void apply_physics();
+
+		// neem langzaam density af voor de hele grid
+		void FadeDensity(int size);
 
 	public:
 		void AddDensity(float x, float y, float amount);
@@ -52,7 +51,7 @@ namespace sim
 
 		/// @brief update the grid squares variables
 		void Update(sf::RenderWindow& win);
-
+		
 		sf::Color Hsv(int hue, float sat, float val, float d);
 	};
 

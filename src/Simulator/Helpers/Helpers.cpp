@@ -5,6 +5,7 @@ namespace sim
 {
 	int rand_int(int min, int max)
 	{
+		if (min > max) min = max;
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<int> dis(min, max);
@@ -12,6 +13,7 @@ namespace sim
 	}
 	float rand_float(float min, float max)
 	{
+		if (min > max) min = max;
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_real_distribution<float> dis(min, max);
@@ -36,12 +38,7 @@ namespace sim
 
 	int IX(int x, int y, int N)
 	{
-		if (x < 0) { x = 0; }
-		if (x > N - 1) { x = N - 1; }
-
-		if (y < 0) { y = 0; }
-		if (y > N - 1) { y = N - 1; }
-		return (y * N) + x;
+		return y * N + x;
 	}
 
 	sf::Color Lerp(const sf::Color& a, const sf::Color& b, float val)
