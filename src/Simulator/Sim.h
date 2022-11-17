@@ -35,15 +35,21 @@ namespace sim
 		std::atomic_bool is_running = false;
 		sf::Vector2i mouse_pos = { };
 
-		bool LMB_down = false;
-		bool RMB_down = false;
+		bool can_interact = false;
+		bool is_effector_button_down = false;
+		bool is_add_density_button_down = false;
 	private:
 		bool init_window();
 		void event_handler();
 		void Render();
 		void update_vars();
 		void clean_up();
-		void input();
+		void get_input();
+
+
+	public:
+		int vel_effector_button = ImGuiKey_MouseLeft;
+		int add_density_button = ImGuiKey_MouseRight;
 
 	public:
 		sf::Time deltatime;

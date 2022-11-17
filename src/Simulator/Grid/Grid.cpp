@@ -11,25 +11,25 @@ float sim::Grid::MapToRange(float value, float minIn, float maxIn, float minOut,
 
 void sim::Grid::apply_physics()
 {
-	p_Physics->Diffuse(1, this->px, this->x, this->visc, this->dt, 16, this->size);
-	p_Physics->Diffuse(2, this->py, this->y, this->visc, this->dt, 16, this->size);
+	p_Physics->Diffuse(1, this->px, this->x, *this->visc, *this->dt, 16, this->size);
+	p_Physics->Diffuse(2, this->py, this->y, *this->visc, *this->dt, 16, this->size);
 
 	p_Physics->Project(this->px, this->py, this->x, this->y, 16, this->size);
 
-	p_Physics->Advect(1, this->x, this->px, this->px, this->py, this->dt, this->size);
-	p_Physics->Advect(2, this->y, this->py, this->px, this->py, this->dt, this->size);
+	p_Physics->Advect(1, this->x, this->px, this->px, this->py, *this->dt, this->size);
+	p_Physics->Advect(2, this->y, this->py, this->px, this->py, *this->dt, this->size);
 
 	p_Physics->Project(this->x, this->y, this->px, this->py, 16, this->size);
 
-	p_Physics->Diffuse(0, this->previousDensity, this->density, this->diff, this->dt, 16, this->size);
-	p_Physics->Advect(0, this->density, this->previousDensity, this->x, this->y, this->dt, this->size);
+	p_Physics->Diffuse(0, this->previousDensity, this->density, *this->diff, *this->dt, 16, this->size);
+	p_Physics->Advect(0, this->density, this->previousDensity, this->x, this->y, *this->dt, this->size);
 }
 
 void sim::Grid::FadeDensity(int size)
 {
     for (int i = 0; i < size; i++) {
         float d = this->density[i];
-        density[i] = (d - 0.05f < 0) ? 0 : d - 0.05f;
+        density[i] = (d - *this->fadeSpeed < 0) ? 0 : d - *this->fadeSpeed;
     }
 }
 

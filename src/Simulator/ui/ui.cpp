@@ -48,90 +48,140 @@ void sim::ui::decorations()
 	style->Colors[ImGuiCol_Header] = (ImColor)lighter_blue;
 }
 
+std::once_flag flag, flag2;
+
 void sim::ui::render_ui()
 {
-	std::once_flag flag;
 	decorations();
 
-	if (ImGui::Begin("Settings"))
+	static bool listen_to_hotkey = false;
+	static const char* add_density_button_c = ImGui::GetKeyName(ImGuiKey(p_Sim->add_density_button));
+	static const char* vel_effector_button_c = ImGui::GetKeyName(ImGuiKey(p_Sim->vel_effector_button));
+	
+	std::call_once(flag2, []()
+		{
+			ImGui::SetNextWindowSize(ImVec2(340, 600));
+			ImGui::SetNextWindowPos(ImVec2(560, 0));
+		});
+	if (ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings))
 	{
+		if (listen_to_hotkey)
+		{
+			for (int i = 0; i < ImGuiKey_COUNT; i++)
+			{
+				if (ImGui::IsKeyReleased(ImGuiKey(i)))
+				{
+					if (ImGuiKey(i) == sf::Keyboard::Escape)
+					{
+						if (strcmp(add_density_button_c, "...") == 0)
+						{
+							p_Sim->add_density_button = sf::Keyboard::Unknown;
+							add_density_button_c = "None";
+						}
+						else
+						{
+							p_Sim->vel_effector_button = sf::Keyboard::Unknown;
+							vel_effector_button_c = "None";
+						}
+					}
+					else
+					{
+						if (strcmp(add_density_button_c, "...") == 0)
+						{
+							p_Sim->add_density_button = i;
+							add_density_button_c = ImGui::GetKeyName(ImGuiKey(i));
+						}
+						else
+						{
+							p_Sim->vel_effector_button = i;
+							vel_effector_button_c = ImGui::GetKeyName(ImGuiKey(i));
+						}
+					}
+					listen_to_hotkey = false;
+					break;
+				}
+			}
+		}
+	
 		ImDrawList* draw = ImGui::GetWindowDrawList();
 
 		ImGui::Text("FPS %.1f", 1.f / p_Sim->deltatime.asSeconds());
-
+		
 		static float col0[4];
 		static float col1[4];
+		static bool diffdiff = false;
 
 		std::call_once(flag, []()
 			{
 				sim::set_Float4FromVec4(col0, reinterpret_cast<void*>(&sim::grid::dens0Col));
 				sim::set_Float4FromVec4(col1, reinterpret_cast<void*>(&sim::grid::dens1Col));
 			});
-		
-		ImGui::Combo("Color Mode", &sim::grid::mode, gridModes, IM_ARRAYSIZE(gridModes));
 
-		if (ImGui::SliderInt("timestep", &sim::p_Sim->timestep, 0, 200000));
+		ImGui::BeginChild("fluid settings", ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y / 3 - 20), true);
+		ImGui::SetCursorPosX(ImGui::GetWindowWidth() / 2 - 15);
+		ImGui::TextColored(ImVec4(1, 1, 1, 0.2f), "Fluid");
+		ImGui::Separator();
+
+		ImGui::SliderFloat("viscosity", &grid::visc, 0.00000001f, 0.00500000f, "%.5f");
+		ImGui::SliderFloat("fluid speed", &grid::dt, 0, 1);
+		ImGui::SliderFloat("fade dens speed", &grid::fadeDensSpeed, 0.05f, 1);
+		if (ImGui::Checkbox("edit diffusion", &diffdiff) && !diffdiff)
+			grid::diff = 0;
+		if (diffdiff)
+			ImGui::SliderFloat("diffusion", &grid::diff, 0.0001f, 0.1f, "%.5f");
+		if (ImGui::Button("reset to default"))
 		{
-			// 
+			grid::visc = 0.0000001f;
+			grid::dt = 0.2f;
+			grid::fadeDensSpeed = 0.05f;
+			grid::diff = 0;
+			diffdiff = false;
 		}
+		ImGui::EndChild();
 
-		if (ImGui::ColorEdit4("color 0", col0, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens0Col), col0); }
-		if (ImGui::ColorEdit4("color 1", col1, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens1Col), col1); }
-		
+		ImGui::BeginChild("visuals", ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y / 3 - 20), true);
+		ImGui::SetCursorPosX(ImGui::GetWindowWidth() / 2 - 20);
+		ImGui::TextColored(ImVec4(1, 1, 1, 0.2f), "Visuals");
+		ImGui::Separator();
+
+		ImGui::Combo("Visualization", &sim::grid::mode, gridModes, IM_ARRAYSIZE(gridModes));
 		draw->AddRectFilledMultiColor(ImGui::GetWindowPos() + ImGui::GetCursorPos(), ImGui::GetWindowPos() + ImGui::GetCursorPos() + ImVec2(ImGui::GetWindowSize().x - 15, 10),
 			ImGui::ColorConvertFloat4ToU32(sim::grid::dens0Col),
 			ImGui::ColorConvertFloat4ToU32(sim::grid::dens1Col),
 			ImGui::ColorConvertFloat4ToU32(sim::grid::dens1Col),
 			ImGui::ColorConvertFloat4ToU32(sim::grid::dens0Col)
 			);
+		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 15);
+		if (ImGui::ColorEdit3("color 0", col0, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel)) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens0Col), col0); }
+		ImGui::SameLine();
+		ImGui::SetCursorPosX(ImGui::GetWindowSize().x - 25);
+		if (ImGui::ColorEdit3("color 1", col1, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel )) { set_ImVec4(reinterpret_cast<void*>(&sim::grid::dens1Col), col1); }
+
+		ImGui::EndChild();
+
+		ImGui::BeginChild("keybinds", ImVec2(ImGui::GetWindowSize().x - 15, ImGui::GetWindowSize().y / 3 - 20), true);
+		ImGui::SetCursorPosX(ImGui::GetWindowWidth() / 2 - 20);
+		ImGui::TextColored(ImVec4(1, 1, 1, 0.2f), "Keybinds");
+		ImGui::Separator();
+		ImGui::Text("Add density"); ImGui::SameLine();
+		ImGui::PushID("density");
+		if (ImGui::Button(add_density_button_c) && !listen_to_hotkey)
+		{
+			listen_to_hotkey = true;
+			add_density_button_c = "...";
+		}
+		ImGui::PopID();
+
+		ImGui::Text("Effect velocity"); ImGui::SameLine();
+		ImGui::PushID("effector");
+		if (ImGui::Button(vel_effector_button_c) && !listen_to_hotkey)
+		{
+			listen_to_hotkey = true;
+			vel_effector_button_c = "...";
+		}
+		ImGui::PopID();
+		ImGui::EndChild();
+
 		ImGui::End();
 	}
-
-	if (ImGui::Begin("Inspector"))
-	{
-		if (sim::grid::gridvec.empty())
-			ImGui::BeginDisabled();
-
-		//static int selected_item = -1;
-		//static char buf[50];
-
-		ImGui::Text("scene");
-		ImGui::Separator();
-		ImGui::BeginChild("objects in scene", ImGui::GetWindowSize() / ImVec2(1.08,2) - ImVec2(5,5), true);
-		{
-			for (int i = 0; i < sim::grid::gridvec.size(); i++)
-			{
-				const bool is_selected = (i == selected_item);
-				if (ImGui::Selectable(sim::grid::gridvec[i]->get_name().c_str(), is_selected))
-				{
-					strcpy_s(selected_item_name, sim::grid::gridvec[i]->get_name().c_str());
-					selected_item = i;
-				}
-			}
-			ImGui::EndChild();
-		}
-
-		if (sim::ui::selected_item >= 0) {
-			//ImGui::Text(sim::grid::gridvec[selected_item]->get_name().c_str());
-			ImGui::BeginChild("current inspected object", ImGui::GetWindowSize() / ImVec2(1.12, 2) - ImVec2(-5, -5), true);
-			{
-				static float density;
-
-				if (ImGui::InputText("name", selected_item_name, 50))
-					sim::grid::gridvec[selected_item]->set_name(selected_item_name);
-
-				/*if (ImGui::SliderFloat("density", &density, 0.0f, 1.0f))
-					sim::grid::gridvec[selected_item]->set_density(density);*/
-
-				//if (ImGui::ColorPicker3("color", col))
-				//	sim::grid::gridvec[selected_item]->set_color(sf::Color(col[0] * 255, col[1] * 255, col[2] * 255));
-
-				ImGui::EndChild();
-			}
-		}
-
-		if (sim::grid::gridvec.empty())
-			ImGui::EndDisabled();
-	}
-
 }

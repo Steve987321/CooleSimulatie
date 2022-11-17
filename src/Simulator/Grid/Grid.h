@@ -3,16 +3,17 @@ namespace sim
 {
 	namespace grid {
 		
-		constexpr int size = 70;
-		constexpr int scale = 8;
-		constexpr float dt = 0.2f;
-		constexpr float diff = 0;
-		constexpr float visc = 0.0000001f;
+		constexpr int size = 70; // grid size
+		constexpr int scale = 8; // tile size
 
-		//inline const sf::Vector2i rows = sf::Vector2i(size, size);
+		// editable values
+		inline float visc = 0.0000001f; // fluid viscosity
+		inline float dt = 0.2f; // speed
+		inline float fadeDensSpeed = 0.05f;
+		inline float diff = 0;
 
 		inline int mode = 0;
-		inline ImVec4 dens0Col = { 0,0,0, 1 }, dens1Col = {1,1,1,1};
+		inline ImVec4 dens0Col = { 1,1,1,1 }, dens1Col = { 1,1,1,0 };
 		inline std::vector<std::unique_ptr<Square>> gridvec;
 
 	}
@@ -22,9 +23,10 @@ namespace sim
 	private:
 		static const int size = sim::grid::size;
 
-		float dt	= sim::grid::dt;
-		float diff	= sim::grid::diff; 
-		float visc	= sim::grid::visc;
+		float* dt			= &sim::grid::dt;
+		float* visc			= &sim::grid::visc;
+		float* fadeSpeed	= &sim::grid::fadeDensSpeed;
+		float* diff			= &sim::grid::diff;
 
 		float px[size * size] = { 0 };
 		float py[size * size] = { 0 };
