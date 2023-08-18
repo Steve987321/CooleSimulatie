@@ -122,7 +122,7 @@ void sim::ui::render_ui()
 		ImGui::TextColored(ImVec4(1, 1, 1, 0.2f), "Fluid");
 		ImGui::Separator();
 
-		ImGui::SliderFloat("viscosity", &grid::visc, 0.00000001f, 0.00500000f, "%.5f");
+		ImGui::SliderFloat("viscosity", &grid::visc, 0.00000001f, 0.00500000f, "%.8f");
 		ImGui::SliderFloat("fluid speed", &grid::dt, 0, 1);
 		ImGui::SliderFloat("fade dens speed", &grid::fadeDensSpeed, 0.05f, 1);
 		if (ImGui::Checkbox("edit diffusion", &diffdiff) && !diffdiff)
