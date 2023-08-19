@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Simulator\Sim.cpp">
+    <ClCompile Include="src\Engine\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp">
@@ -42,30 +42,21 @@
     <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Simulator\ui\ui.cpp">
+    <ClCompile Include="src\Engine\ui\ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Simulator\Grid\Square.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Simulator\Helpers\Helpers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Simulator\Math\Physics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Simulator\Grid\Grid.cpp">
+    <ClCompile Include="src\Engine\Helpers\Helpers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Simulator\Sim.h">
+    <ClInclude Include="src\Engine\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Simulator\Logger\Logger.h">
+    <ClInclude Include="src\Engine\Logger\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vendor\imgui\imconfig-SFML.h">
@@ -389,22 +380,13 @@
     <ClInclude Include="vendor\SFML-2.5.1\include\SFML\Window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Simulator\ui\ui.h">
+    <ClInclude Include="src\Engine\ui\ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Simulator\Grid\Grid.h">
+    <ClInclude Include="src\Engine\Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Simulator\Types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Simulator\Grid\Square.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Simulator\Helpers\Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Simulator\Math\Physics.h">
+    <ClInclude Include="src\Engine\Helpers\Helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

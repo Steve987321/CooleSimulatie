@@ -1,26 +1,10 @@
 #pragma once
 
-namespace sim
+namespace Toad
 {
 
 class Logger
 {
-private:
-	std::shared_mutex m_mutex;
-	HANDLE m_hOutput;
-
-	std::string get_time() const 
-	{
-		std::ostringstream ss;
-		std::string time;
-
-		auto t = std::time(NULL);
-		tm newtime;
-		localtime_s(&newtime, &t);
-
-		ss << std::put_time(&newtime, "%H:%M:%S");
-		return ss.str();
-	}
 public:
 	inline enum class log_type
 	{
@@ -38,7 +22,7 @@ public:
 	template <typename ... args> 
 	void Print(log_type type, args... Args)
 	{
-		std::unique_lock<std::shared_mutex> lock(m_mutex);
+		std::lock_guard lock(m_mutex);
 
 		SetConsoleTextAttribute(m_hOutput, (WORD)type);
 
@@ -77,14 +61,22 @@ public:
 		std::cout << std::endl;
 	}
 
+private:
+	std::mutex m_mutex;
+	HANDLE m_hOutput;
+
+	std::string get_time() const
+	{
+		std::ostringstream ss;
+		std::string time;
+
+		auto t = std::time(NULL);
+		tm newtime;
+		localtime_s(&newtime, &t);
+
+		ss << std::put_time(&newtime, "%H:%M:%S");
+		return ss.str();
+	}
 };
 
-inline std::unique_ptr<Logger> p_Log;
-
 }
-
-
-#define log_Ok(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LOK, msg, __VA_ARGS__); 
-#define log_Debug(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LDEBUG, msg, __VA_ARGS__); 
-#define log_Error(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LERROR, msg, __VA_ARGS__); 
-#define log_Warn(msg, ...) sim::p_Log->Print(sim::Logger::log_type::LWARNING, msg, __VA_ARGS__); 

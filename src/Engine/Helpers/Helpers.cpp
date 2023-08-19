@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Helpers.h"
 
-namespace sim
+namespace Toad
 {
 	int rand_int(int min, int max)
 	{
