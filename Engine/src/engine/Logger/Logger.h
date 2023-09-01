@@ -3,7 +3,7 @@
 namespace Toad
 {
 
-class Logger
+class ENGINE_API Logger
 {
 public:
 	inline enum class log_type

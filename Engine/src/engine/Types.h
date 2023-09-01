@@ -3,7 +3,7 @@
 namespace Toad
 {
 
-	struct Vec2I
+	struct ENGINE_API Vec2I
 	{
 		int x, y;
 		Vec2I() : x(0), y(0) {}

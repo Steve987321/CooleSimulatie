@@ -1,5 +1,7 @@
 #include "pch.h"
-#include "Engine.h"
+#include "engine.h"
+
+#include 
 
 namespace Toad
 {
@@ -9,9 +11,7 @@ Engine::Engine()
 	s_Instance = this;
 }
 
-Engine::~Engine()
-{
-}
+Engine::~Engine() = default;
 
 bool Engine::Init()
 {
@@ -40,14 +40,22 @@ void Engine::Run()
 		// render the window and contents
 		Render();
 	}
+
 	clean_up();
 }
 
 bool Engine::init_window()
 {
+#ifdef TOAD_EDITOR
 	m_window.create(sf::VideoMode(600, 600), "Engine 2D", sf::Style::Titlebar | sf::Style::Close);
 	m_window.setFramerateLimit(60);
 	return ImGui::SFML::Init(m_window);
+#else
+	// TODO: CHENGE DEEZZ
+	m_window.create(sf::VideoMode(600, 600), "Game", sf::Style::Titlebar | sf::Style::Close);
+	m_window.setFramerateLimit(60);
+	return true;
+#endif
 }
 
 void Engine::event_handler()
@@ -59,6 +67,7 @@ void Engine::event_handler()
 
 		switch (e.type)
 		{
+
 		case sf::Event::Closed:
 		{
 			log_Ok("closing window");
@@ -73,7 +82,7 @@ void Engine::event_handler()
 void Engine::Render()
 {
 	// show ui
-	ui::render_ui();
+	m_renderUI();
 
 	m_window.clear(sf::Color::Black); // window bg
 
@@ -105,6 +114,15 @@ Logger& Engine::GetLogger()
 sf::Time Engine::GetDeltaTime() const
 {
 	return m_deltaTime;
+}
+
+void Engine::StartGameSession()
+{
+}
+
+void Engine::SetEngineUI(FENGINE_UI p_ui)
+{
+	m_renderUI = p_ui;
 }
 
 void Engine::clean_up()

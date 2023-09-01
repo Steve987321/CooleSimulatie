@@ -2,7 +2,7 @@
 #include "Engine/Engine.h"
 #include "ui.h"
 
-void Toad::ui::decorations()
+void ui::decorations()
 {
 	ImGuiStyle* style = &ImGui::GetStyle();
 
@@ -50,7 +50,7 @@ void Toad::ui::decorations()
 
 std::once_flag flag;
 
-void Toad::ui::render_ui()
+void ui::render_ui()
 {
 	decorations();
 

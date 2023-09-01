@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EngineCore.h"
+
 // IMGUI
 #include <imgui/imgui.h>
 #include <imgui/imgui-SFML.h>
@@ -7,24 +9,22 @@
 // SFML
 #include "SFML/Graphics.hpp"
 
-// SIM
 #include "Logger/Logger.h"
-#include "ui/ui.h"
 #include "Helpers/Helpers.h"
 #include "Types.h"
 
 namespace Toad
 {
-	class Engine
+	class ENGINE_API Engine
 	{
 	public:
 		Engine();
 		~Engine();
 
-		// initialize the simulation
+		using FENGINE_UI = void(*)();
+
 		bool Init();
 
-		// rendering and event handling 
 		void Run();
 
 		// get the window position
@@ -36,14 +36,22 @@ namespace Toad
 
 		sf::Time GetDeltaTime() const;
 
+		void StartGameSession();
+
+		void SetEngineUI(FENGINE_UI p_ui);
+
 	private:
 		sf::Time m_deltaTime;
+
+		FENGINE_UI m_renderUI = nullptr;
 
 		sf::RenderWindow m_window;
 		sf::Clock m_deltaClock;
 
 	private:
 		std::atomic_bool m_isRunning = false;
+
+		bool m_start_game = false;
 
 		inline static Engine* s_Instance = nullptr;
 		inline static Logger s_LoggerInstance;

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Toad::ui
+namespace ui
 {
 	// colors and styles 
 	void decorations();
