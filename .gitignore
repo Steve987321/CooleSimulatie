@@ -1,7 +1,8 @@
 .vs/
 bin/
+bin-intermediate/
 bin-inter/
-imgui.ini
+*.ini
 
 
 # Prerequisites

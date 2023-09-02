@@ -1,5 +1,13 @@
 #include "pch.h"
-#include "Engine.h"
+
+#include "EngineCore.h"
+
+#include "engine.h"
+
+#include <imgui/imgui.h>
+#include <imgui/imgui-SFML.h>
+
+#include "Game/src/game_core/GameBase.h"
 
 namespace Toad
 {
@@ -9,9 +17,7 @@ Engine::Engine()
 	s_Instance = this;
 }
 
-Engine::~Engine()
-{
-}
+Engine::~Engine() = default;
 
 bool Engine::Init()
 {
@@ -40,14 +46,24 @@ void Engine::Run()
 		// render the window and contents
 		Render();
 	}
+
 	clean_up();
 }
 
 bool Engine::init_window()
 {
+#ifdef TOAD_EDITOR
 	m_window.create(sf::VideoMode(600, 600), "Engine 2D", sf::Style::Titlebar | sf::Style::Close);
 	m_window.setFramerateLimit(60);
-	return ImGui::SFML::Init(m_window);
+	bool res = ImGui::SFML::Init(m_window);
+	m_io = &ImGui::GetIO();
+	return res;
+#else
+	// TODO: CHENGE DEEZZ
+	m_window.create(sf::VideoMode(600, 600), "Game", sf::Style::Titlebar | sf::Style::Close);
+	m_window.setFramerateLimit(60);
+	return true;
+#endif
 }
 
 void Engine::event_handler()
@@ -55,10 +71,12 @@ void Engine::event_handler()
 	sf::Event e;
 	while (m_window.pollEvent(e))
 	{
+#ifdef TOAD_EDITOR
 		ImGui::SFML::ProcessEvent(e);
-
+#endif
 		switch (e.type)
 		{
+
 		case sf::Event::Closed:
 		{
 			log_Ok("closing window");
@@ -72,29 +90,27 @@ void Engine::event_handler()
 
 void Engine::Render()
 {
+#ifdef TOAD_EDITOR
 	// show ui
-<<<<<<< Updated upstream:src/Engine/Engine.cpp
-	ui::render_ui();
-=======
 	m_renderUI(m_io->Ctx);
 #endif
->>>>>>> Stashed changes:Engine/src/engine/Engine.cpp
-
 	m_window.clear(sf::Color::Black); // window bg
 
 	//--------------------draw------------------------//
 
-	// imgui
+#ifdef TOAD_EDITOR
+// imgui
 	ImGui::SFML::Render(m_window);
+#endif
 
 	//--------------------draw------------------------//
 
 	m_window.display();
 }
 
-ImVec2 Engine::GetWindowPos() const
+sf::Vector2i Engine::GetWindowPos() const
 {
-	return ImVec2(this->m_window.getPosition().x, this->m_window.getPosition().y);
+	return { this->m_window.getPosition().x, this->m_window.getPosition().y };
 }
 
 Engine& Engine::Get()
@@ -110,6 +126,15 @@ Logger& Engine::GetLogger()
 sf::Time Engine::GetDeltaTime() const
 {
 	return m_deltaTime;
+}
+
+void Engine::StartGameSession()
+{
+}
+
+void Engine::SetEngineUI(const FENGINE_UI& p_ui)
+{
+	m_renderUI = p_ui;
 }
 
 void Engine::clean_up()
