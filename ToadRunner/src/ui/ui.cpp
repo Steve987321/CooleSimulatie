@@ -1,7 +1,5 @@
 #include "pch.h"
 
-#define IMGUI_DEFINE_MATH_OPERATORS
-
 #include "Engine/Engine.h"
 #include "ui.h"
 
@@ -53,14 +51,16 @@ void ui::decorations()
 
 std::once_flag flag;
 
-void ui::render_ui()
+void ui::render_ui(ImGuiContext* ctx)
 {
+	ImGui::SetCurrentContext(ctx);
+
 	decorations();
 
 	std::call_once(flag, []()
 		{
-			ImGui::SetNextWindowSize(ImVec2(340, 600));
-			ImGui::SetNextWindowPos(ImVec2(560, 0));
+			ImGui::SetNextWindowSize(ImVec2(340, 100));
+			ImGui::SetNextWindowPos(ImVec2(0, 0));
 		});
 
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);

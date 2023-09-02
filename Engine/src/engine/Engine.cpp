@@ -55,7 +55,9 @@ bool Engine::init_window()
 #ifdef TOAD_EDITOR
 	m_window.create(sf::VideoMode(600, 600), "Engine 2D", sf::Style::Titlebar | sf::Style::Close);
 	m_window.setFramerateLimit(60);
-	return ImGui::SFML::Init(m_window);
+	bool res = ImGui::SFML::Init(m_window);
+	m_io = &ImGui::GetIO();
+	return res;
 #else
 	// TODO: CHENGE DEEZZ
 	m_window.create(sf::VideoMode(600, 600), "Game", sf::Style::Titlebar | sf::Style::Close);
@@ -69,8 +71,9 @@ void Engine::event_handler()
 	sf::Event e;
 	while (m_window.pollEvent(e))
 	{
+#ifdef TOAD_EDITOR
 		ImGui::SFML::ProcessEvent(e);
-
+#endif
 		switch (e.type)
 		{
 
@@ -87,15 +90,18 @@ void Engine::event_handler()
 
 void Engine::Render()
 {
+#ifdef TOAD_EDITOR
 	// show ui
-	m_renderUI();
-
+	m_renderUI(m_io->Ctx);
+#endif
 	m_window.clear(sf::Color::Black); // window bg
 
 	//--------------------draw------------------------//
 
+#ifdef TOAD_EDITOR
 	// imgui
 	ImGui::SFML::Render(m_window);
+#endif
 
 	//--------------------draw------------------------//
 
@@ -126,7 +132,7 @@ void Engine::StartGameSession()
 {
 }
 
-void Engine::SetEngineUI(FENGINE_UI p_ui)
+void Engine::SetEngineUI(const FENGINE_UI& p_ui)
 {
 	m_renderUI = p_ui;
 }

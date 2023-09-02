@@ -1,0 +1,5 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (D:\VSProjects\ToadEngine2D\bin-intermediate\x64\Dev\) contains files shared from another project (Game.vcxproj, ToadRunner.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Engine.cpp
+D:\VSProjects\ToadEngine2D\Engine\src\engine\Logger\Logger.h(17): warning C4091: 'inline ': ignored on left of 'Toad::Logger::log_type' when no variable is declared
+     Creating library D:\VSProjects\ToadEngine2D\bin\x64\Dev\Engine.lib and object D:\VSProjects\ToadEngine2D\bin\x64\Dev\Engine.exp
+  Engine.vcxproj -> D:\VSProjects\ToadEngine2D\bin\x64\Dev\Engine.dll

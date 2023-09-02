@@ -5,5 +5,5 @@ namespace ui
 	// colors and styles 
 	void decorations();
 
-	void render_ui();
+	void render_ui(ImGuiContext* ctx);
 }

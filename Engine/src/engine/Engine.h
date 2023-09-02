@@ -1,9 +1,10 @@
 #pragma once
 
 #include "EngineMeta.h"
+#include "EngineCore.h"
 
-// SFML
-#include "SFML/Graphics.hpp"
+#include <functional>
+#include <imgui/imgui_internal.h>
 
 namespace Toad
 {
@@ -13,7 +14,7 @@ namespace Toad
 		Engine();
 		~Engine();
 
-		using FENGINE_UI = void(*)();
+		using FENGINE_UI = std::function<void(ImGuiContext* ctx)>;
 
 		bool Init();
 
@@ -30,20 +31,18 @@ namespace Toad
 
 		void StartGameSession();
 
-		void SetEngineUI(FENGINE_UI p_ui);
+		void SetEngineUI(const FENGINE_UI& p_ui);
 
 	private:
 		sf::Time m_deltaTime;
-
-		FENGINE_UI m_renderUI = nullptr;
-
 		sf::RenderWindow m_window;
 		sf::Clock m_deltaClock;
 
+		FENGINE_UI m_renderUI = nullptr;
+		ImGuiIO* m_io = nullptr;
+
 	private:
 		std::atomic_bool m_isRunning = false;
-
-		bool m_start_game = false;
 
 		inline static Engine* s_Instance = nullptr;
 		inline static Logger s_LoggerInstance;

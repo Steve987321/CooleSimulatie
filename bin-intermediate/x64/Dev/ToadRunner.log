@@ -1,17 +1,9 @@
-﻿  ui.cpp
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (D:\VSProjects\ToadEngine2D\bin-intermediate\x64\Dev\) contains files shared from another project (Engine.vcxproj, Game.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (D:\VSProjects\ToadEngine2D\bin-intermediate\x64\Dev\) contains files shared from another project (Engine.vcxproj, ToadRunner.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (D:\VSProjects\ToadEngine2D\bin-intermediate\x64\Dev\) contains files shared from another project (Game.vcxproj, ToadRunner.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  entry.cpp
 D:\VSProjects\ToadEngine2D\Engine\src\engine\Logger\Logger.h(17): warning C4091: 'inline ': ignored on left of 'Toad::Logger::log_type' when no variable is declared
-D:\VSProjects\ToadEngine2D\Engine\src\engine\Logger\Logger.h(67,13): warning C4251: 'Toad::Logger::m_mutex': class 'std::mutex' needs to have dll-interface to be used by clients of class 'Toad::Logger'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\mutex(86): message : see declaration of 'std::mutex'
-  imgui-SFML.cpp
-D:\VSProjects\ToadEngine2D\ToadRunner\src\imgui_impl\imgui-SFML.cpp(1,10): fatal  error C1083: Cannot open include file: 'imgui-SFML.h': No such file or directory
-  imgui.cpp
-D:\VSProjects\ToadEngine2D\ToadRunner\src\imgui_impl\imgui.cpp(940,10): fatal  error C1083: Cannot open include file: 'imgui.h': No such file or directory
-  imgui_demo.cpp
-D:\VSProjects\ToadEngine2D\ToadRunner\src\imgui_impl\imgui_demo.cpp(88,10): fatal  error C1083: Cannot open include file: 'imgui.h': No such file or directory
-  imgui_draw.cpp
-D:\VSProjects\ToadEngine2D\ToadRunner\src\imgui_impl\imgui_draw.cpp(33,10): fatal  error C1083: Cannot open include file: 'imgui.h': No such file or directory
-  imgui_tables.cpp
-D:\VSProjects\ToadEngine2D\ToadRunner\src\imgui_impl\imgui_tables.cpp(196,10): fatal  error C1083: Cannot open include file: 'imgui.h': No such file or directory
-  imgui_widgets.cpp
-D:\VSProjects\ToadEngine2D\ToadRunner\src\imgui_impl\imgui_widgets.cpp(39,10): fatal  error C1083: Cannot open include file: 'imgui.h': No such file or directory
+  ui.cpp
+D:\VSProjects\ToadEngine2D\Engine\src\engine\Logger\Logger.h(17): warning C4091: 'inline ': ignored on left of 'Toad::Logger::log_type' when no variable is declared
   Generating Code...
+  ToadRunner.vcxproj -> D:\VSProjects\ToadEngine2D\bin\x64\Dev\ToadRunner.exe
