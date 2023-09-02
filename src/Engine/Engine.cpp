@@ -73,7 +73,12 @@ void Engine::event_handler()
 void Engine::Render()
 {
 	// show ui
+<<<<<<< Updated upstream:src/Engine/Engine.cpp
 	ui::render_ui();
+=======
+	m_renderUI(m_io->Ctx);
+#endif
+>>>>>>> Stashed changes:Engine/src/engine/Engine.cpp
 
 	m_window.clear(sf::Color::Black); // window bg
 
