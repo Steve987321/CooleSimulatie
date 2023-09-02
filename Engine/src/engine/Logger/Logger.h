@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EngineCore.h"
+
 namespace Toad
 {
 

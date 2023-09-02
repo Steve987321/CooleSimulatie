@@ -4,7 +4,13 @@
 
 #include <EngineCore.h>
 
-class ENGINE_API GameBase
+#ifdef GAME_IS_EXPORT
+#define GAME_API __declspec(dllexport)
+#else
+#define GAME_API __declspec(dllimport)
+#endif
+
+class GAME_API GameBase
 {
 public:
 	GameBase();

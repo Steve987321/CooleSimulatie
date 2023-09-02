@@ -1,17 +1,9 @@
 #pragma once
 
-#include "EngineCore.h"
-
-// IMGUI
-#include <imgui/imgui.h>
-#include <imgui/imgui-SFML.h>
+#include "EngineMeta.h"
 
 // SFML
 #include "SFML/Graphics.hpp"
-
-#include "Logger/Logger.h"
-#include "Helpers/Helpers.h"
-#include "Types.h"
 
 namespace Toad
 {
@@ -28,7 +20,7 @@ namespace Toad
 		void Run();
 
 		// get the window position
-		ImVec2 GetWindowPos() const;
+		sf::Vector2i GetWindowPos() const;
 
 		static Engine& Get();
 

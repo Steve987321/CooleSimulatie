@@ -1,4 +1,7 @@
 #include "pch.h"
+
+#define IMGUI_DEFINE_MATH_OPERATORS
+
 #include "Engine/Engine.h"
 #include "ui.h"
 
@@ -62,7 +65,7 @@ void ui::render_ui()
 
 	ImGui::Begin("Settings", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings);
 	{
-		ImGui::Text("FPS %.1f", 1.f / Engine::Get().GetDeltaTime().asSeconds());
+		ImGui::Text("FPS %.1f", 1.f / Toad::Engine::Get().GetDeltaTime().asSeconds());
 
 		ImGui::End();
 	}

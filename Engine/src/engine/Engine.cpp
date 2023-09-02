@@ -1,7 +1,13 @@
 #include "pch.h"
+
+#include "EngineCore.h"
+
 #include "engine.h"
 
-#include 
+#include <imgui/imgui.h>
+#include <imgui/imgui-SFML.h>
+
+#include "Game/src/game_core/GameBase.h"
 
 namespace Toad
 {
@@ -96,9 +102,9 @@ void Engine::Render()
 	m_window.display();
 }
 
-ImVec2 Engine::GetWindowPos() const
+sf::Vector2i Engine::GetWindowPos() const
 {
-	return ImVec2(this->m_window.getPosition().x, this->m_window.getPosition().y);
+	return { this->m_window.getPosition().x, this->m_window.getPosition().y };
 }
 
 Engine& Engine::Get()
